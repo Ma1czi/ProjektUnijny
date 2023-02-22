@@ -53,13 +53,26 @@ table{
     width: 100%;
     text-align: left;
 }
-.plus svg:hover{
+#plus svg:hover{
     color: rgb(25, 163, 25)
 }
-.notes svg:hover{
+.notes:hover{
     color: rgb(178, 167, 7);
 }
-.trash svg:hover{
+.trash:hover{
     color: red;
 }
-
+details > summary {
+    list-style: none;
+  }
+  
+  details > summary::marker, /* Latest Chrome, Edge, Firefox */ 
+  details > summary::-webkit-details-marker /* Safari */ {
+    display: none;
+}
+button{
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

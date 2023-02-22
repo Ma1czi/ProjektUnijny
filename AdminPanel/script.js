@@ -20,13 +20,4 @@ async function deletefile(filepath){
     });
     window.location.reload();
 }
-async function addForm(){
-    var formData = new FormData;
-    formData.set("formname", "Jasio");
-    await fetch('modules/addform.php', {
-        method: 'POST',
-        body: formData
-    });
-    window.location.reload();
-}
 
