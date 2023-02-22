@@ -21,14 +21,13 @@
                 <b>Możliwe zgłoszenia do projektów:</b>
                 <?php
                     displayformslist();
-                ?>
+                    ?>
             </div>
         </div>
     </main>
     <footer>
         <div class="center">
             Copyright &copy; - Zespół Szkół Elektronicznych w Zduńskiej Woli <br> 
-            Projekt i wykonanie - <a href="https://ma1czi.github.io/MalcziPage/" target="_blank">Mikołaj Bulzacki</a>
         </div>
     </footer>
 </body>

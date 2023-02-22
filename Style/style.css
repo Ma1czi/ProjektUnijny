@@ -36,7 +36,10 @@ footer{
 }
 a{
     text-decoration: none;
-    color: rgb(88, 159, 211);
+    color: rgb(88, 159, 211) !important;
+}
+a:hover{
+    color: rgb(26, 59, 83) !important;
 }
 .playground{
     border-radius: 10px;
@@ -50,13 +53,13 @@ table{
     width: 100%;
     text-align: left;
 }
-.gg-math-plus:hover{
+.plus svg:hover{
     color: rgb(25, 163, 25)
 }
-.gg-notes:hover{
+.notes svg:hover{
     color: rgb(178, 167, 7);
 }
-.gg-trash:hover{
+.trash svg:hover{
     color: red;
 }
 
