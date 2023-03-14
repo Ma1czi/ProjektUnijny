@@ -37,17 +37,42 @@ var getFromBetween = {
         this.string = string;
         this.getAllResults(sub1,sub2);
         return this.results;
+    },
+    getone:function(string,sub1,sub2){
+        this.string = string;
+        return this.getFromBetween(sub1,sub2);
     }
 };
+var convertForm = {
+    convertIntoAdminPanel:function(){
+        var main = document.querySelector("main");
+        main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
+        var result = getFromBetween.get(main.innerHTML,'<label','</label>');
+        //console.log(result);
+        result.forEach(element => {
+            var input = element;
+            var rowid = getFromBetween.getone(input,'"','"');
+            //console.log(rowid);
+            input =  input.replace('for=', '<input type="text" id=');
+            input =  input.replace('>', ' value="');
+            input = input+'\"><button onclick="deleterow(\''+rowid+'\')">Usuń</button>';
+            //console.log(input);
+            var find = '<label'+element+'</label>';
+            console.log(rowid);
+            main.innerHTML = main.innerHTML.replace(find, input);
+        });
+        main.innerHTML = main.innerHTML+' <div class="center"><div class="playground" style="margin-top: 30px;"><input type="submit" value="Dodaj"><input type="text" name="" id="" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div>';
+        //console.log(document.body.innerHTML);
+    }, 
+    convertintoUserForm:function(){
+        
+    }
+};
+function deleterow(rowid){
+    var elem = document.getElementById(rowid);
+    elem.parentNode.removeChild(elem);
+}
 
-document.body.innerHTML = document.body.innerHTML.replace(/<input/g, '<input disabled');
-var result = getFromBetween.get(document.body.innerHTML,'<label','</label>');
-result.forEach(element => {
-    var input = element;
-    input =  input.replace('for=', '<input type="text" name=');
-    input =  input.replace('>', ' value="');
-    input =  input.replace(':', ':"><input type="submit" value="usuń">');
-    var find = '<label'+element+'</label>';
-    document.body.innerHTML = document.body.innerHTML.replace(find, input);
-});
- console.log(document.body.innerHTML);
+convertForm.convertIntoAdminPanel();
+    
+//<button onclick=\"modifefile('".$filename."')\">
