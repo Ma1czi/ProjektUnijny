@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <td><label for="pesel">Pesel: </label></td>
-                                <td><input type="number" name="pesel" id="pesel"></td>
+                                <td><input type="number" name="pesel" id="pesel" maxlength="11" minlength="11"></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -51,10 +51,10 @@
                             </tr>
                             <tr>
                                 <td><label for="code">Kod: </label></td>
-                                <td><input type="text" name="code" id="code" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000"></td>
+                                <td><input type="text" name="code" id="code" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000" maxlength="6"></td>
                             </tr>
                             <tr>
-                                <td><label for="street">Ulica</label></td>
+                                <td><label for="street">Ulica: </label></td>
                                 <td><input type="text" name="street" id="street"></td>
                             </tr>
                             <tr>
@@ -71,14 +71,14 @@
                         <legend>Inne</legend>
                         <table>
                             <tr>
-                                <td>Urzeń/Urzennica z niepełnosprawnością: </td>
+                                <td><label for="disabled">Urzeń/Urzennica z niepełnosprawnością:</label></td>
                                 <td>
                                     Tak<input type="radio" name="disabled" id="disabledT">
                                     Nie<input type="radio" name="disabled" id="disabledF">
                                 </td>
                             </tr>
                             <tr>
-                                <td>Urzeń/Urzennica z opinią lub orzeczeniem: </td>
+                                <td><label for="opinion">Urzeń/Urzennica z opinią lub orzeczeniem: </label></td>
                                 <td>
                                     Tak<input type="radio" name="opinion" id="opinionT">
                                     Nie<input type="radio" name="opinion" id="opinionF">
