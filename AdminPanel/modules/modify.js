@@ -58,21 +58,41 @@ var convertForm = {
             input = input+'\"><button onclick="deleterow(\''+rowid+'\')">Usuń</button>';
             //console.log(input);
             var find = '<label'+element+'</label>';
-            console.log(rowid);
+            //console.log(rowid);
             main.innerHTML = main.innerHTML.replace(find, input);
         });
         main.innerHTML = main.innerHTML+' <div class="center"><div class="playground" style="margin-top: 30px;"><input type="submit" value="Dodaj"><input type="text" name="" id="" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div>';
-        //console.log(document.body.innerHTML);
+        console.log(document.body.innerHTML);
     }, 
     convertintoUserForm:function(){
         
     }
 };
+async function overwriteModifyFile(){
+    var formData = new FormData;
+    var fileName = location.pathname.split("/").slice(-1);
+    fileName = decodeURIComponent(fileName);
+    var content = document.body.innerHTML;
+    formData.append("content", content);
+    formData.append("formName", fileName);
+    //console.log(formData);
+    await fetch('../AdminPanel/modules/overwriteForm.php', {
+        method: 'POST',
+        body: formData
+    });
+    alert("dsa");
+    return null;
+}
 function deleterow(rowid){
     var elem = document.getElementById(rowid);
     elem.parentNode.removeChild(elem);
 }
+window.onbeforeunload = confirmExit;
+async function confirmExit(){
+    await overwriteModifyFile();
+    alert("confirm exit is being called");
+    return false;
+}
 
+//overwriteModifyFile();
 convertForm.convertIntoAdminPanel();
-    
-//<button onclick=\"modifefile('".$filename."')\">
