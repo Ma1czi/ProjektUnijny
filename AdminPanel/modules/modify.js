@@ -49,8 +49,8 @@ var convertForm = {
         var main = document.querySelector("main");
         var result = getFromBetween.get(main.innerHTML,'<label','</label>');
         //console.log(result);
-        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" name="" id="spacename" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div>';
-        if(!document.getElementById("np")){
+        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
+        if(!document.getElementById("spacename")){
             main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
 
             main.innerHTML = main.innerHTML+textadd;
@@ -60,8 +60,8 @@ var convertForm = {
         result.forEach(element => {
             var input = element;
             var rowid = getFromBetween.getone(input,'"','"');
-            //console.log(rowid);
-            input =  input.replace('for=', '<input type="text" id=');
+            console.log(input);
+            input =  input.replace('for=\"'+rowid+'\"', '<input type="text"');
             input =  input.replace('>', ' value="');
             input = input+'\"><button onclick="deleterow(\''+rowid+'\')">Usuń</button>';
             //console.log(input);
@@ -69,7 +69,7 @@ var convertForm = {
             //console.log(rowid);
             main.innerHTML = main.innerHTML.replace(find, input);
         });
-        console.log(document.body.innerHTML);
+        //console.log(document.body.innerHTML);
     }, 
     convertintoUserForm:function(){ 
         
@@ -104,17 +104,50 @@ async function confirmExit(){
     return false;
 }
 
-
-convertForm.convertIntoAdminPanel();
 function addElement(){
+    const inputtype = document.getElementById('inputtype');
+    const inputplace = document.getElementById('inputplace');
+    
     const val = document.getElementById("spacename").value;
-    // alert("Dodaj");
-    // const input = document.createElement("input");
-    // input.setAttribute("type", type);
-    // input.setAttribute("value", value);
-    // input.setAttribute("name", value);
-    // input.setAttribute("id", value);
-        // const val = document.getElementById("place").value;
-         alert(val);
+    const type = inputtype.options[inputtype.selectedIndex].value;
+    const place = inputplace.options[inputplace.selectedIndex].value;
+    
+    // console.log(val);
+    // console.log(type);
+    // console.log(place);
+    
+    
+    //console.log(val);
+    const fieldset = document.getElementById(place);
+    
+    const newtablerow = document.createElement("tr");
+    const newtablecol1 = document.createElement("td");
+    const input1 = document.createElement("input")
+    input1.setAttribute("type", "text");
+    input1.setAttribute("value", val);
+
+    const button = document.createElement("button");
+    button.innerHTML = "Usuń";
+    button.setAttribute("onclick", 'deleterow(\''+val+'\')');
+
+    newtablecol1.appendChild(input1);
+    newtablecol1.appendChild(button);
+    newtablerow.appendChild(newtablecol1);
+
+    const newtablecol = document.createElement("td");
+    const input = document.createElement("input")
+    input.setAttribute("type", type);
+    input.setAttribute("name", val);
+    input.setAttribute("id", val);
+    input.setAttribute("disabled", true);
+
+    newtablecol.appendChild(input)
+    newtablerow.appendChild(newtablecol);
+    
+    fieldset.appendChild(newtablerow);
+    
     
 }
+
+
+convertForm.convertIntoAdminPanel();

@@ -5,3 +5,4 @@ Praca oparta o interfejs bazodanowy wraz z systemem logowania, weryfikacją dla 
 
 - Stworzenie interfejsu dla użytkowników na którym będą mogli wypełnić wybrany formularz.
 - Stworzenie interfejsu dla admina na którym będzie możliwość dodawania, usuwania, i modifikacji odpowiednich części formularza.
+- Modyfikacja będzie pozwalać dodawać, usuwać i zmieniać nazwe
