@@ -43,12 +43,20 @@ var getFromBetween = {
         return this.getFromBetween(sub1,sub2);
     }
 };
+
 var convertForm = {
     convertIntoAdminPanel:function(){
         var main = document.querySelector("main");
-        main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
         var result = getFromBetween.get(main.innerHTML,'<label','</label>');
         //console.log(result);
+        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" name="" id="spacename" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div>';
+        if(!document.getElementById("np")){
+            main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
+
+            main.innerHTML = main.innerHTML+textadd;
+
+        }
+
         result.forEach(element => {
             var input = element;
             var rowid = getFromBetween.getone(input,'"','"');
@@ -61,13 +69,13 @@ var convertForm = {
             //console.log(rowid);
             main.innerHTML = main.innerHTML.replace(find, input);
         });
-        main.innerHTML = main.innerHTML+' <div class="center"><div class="playground" style="margin-top: 30px;"><input type="submit" value="Dodaj"><input type="text" name="" id="" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div>';
         console.log(document.body.innerHTML);
     }, 
-    convertintoUserForm:function(){
+    convertintoUserForm:function(){ 
         
     }
 };
+
 async function overwriteModifyFile(){
     var formData = new FormData;
     var fileName = location.pathname.split("/").slice(-1);
@@ -80,19 +88,33 @@ async function overwriteModifyFile(){
         method: 'POST',
         body: formData
     });
-    alert("dsa");
+    //alert("dsa");
     return null;
 }
+
 function deleterow(rowid){
     var elem = document.getElementById(rowid);
-    elem.parentNode.removeChild(elem);
+    elem.parentElement.parentElement.remove();
 }
+
 window.onbeforeunload = confirmExit;
 async function confirmExit(){
     await overwriteModifyFile();
-    alert("confirm exit is being called");
+    //alert("confirm exit is being called");
     return false;
 }
 
-//overwriteModifyFile();
+
 convertForm.convertIntoAdminPanel();
+function addElement(){
+    const val = document.getElementById("spacename").value;
+    // alert("Dodaj");
+    // const input = document.createElement("input");
+    // input.setAttribute("type", type);
+    // input.setAttribute("value", value);
+    // input.setAttribute("name", value);
+    // input.setAttribute("id", value);
+        // const val = document.getElementById("place").value;
+         alert(val);
+    
+}

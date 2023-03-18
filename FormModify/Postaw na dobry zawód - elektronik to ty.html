@@ -24,81 +24,75 @@
                     <fieldset>
                         <legend>Dane personalne</legend>
                         <table>
+                            <tbody>
                             <tr>
-                                <td><label for="name">Imię: </label></td>
-                                <td><input type="text" name="name" id="name"></td>
+                                <td> <input type="text" id="lastname" value="Nazwisko: "><button onclick="deleterow('lastname')">Usuń</button></td>
+                                <td><input disabled="" type="text" name="lastname" id="lastname"></td>
                             </tr>
-                            <tr>
-                                <td><label for="lastname">Nazwisko: </label></td>
-                                <td><input type="text" name="lastname" id="lastname"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="pesel">Pesel: </label></td>
-                                <td><input type="number" name="pesel" id="pesel" maxlength="11" minlength="11"></td>
-                            </tr>
-                        </table>
+                            
+                        </tbody></table>
                     </fieldset>
                     <fieldset>
                         <legend>Dane kontaktowe</legend>
                         <table>
-                            <tr>
-                                <td><label for="voivodeship">Województwo: </label></td>
-                                <td><input type="text" name="voivodeship" id="voivodeship"></td>
+                            <tbody><tr>
+                                <td> <input type="text" id="voivodeship" value="Województwo: "><button onclick="deleterow('voivodeship')">Usuń</button></td>
+                                <td><input disabled="" type="text" name="voivodeship" id="voivodeship"></td>
                             </tr>
                             <tr>
-                                <td><label for="place">Miejscowość: </label></td>
-                                <td><input type="text" name="place" id="place"></td>
+                                <td> <input type="text" id="place" value="Miejscowość: "><button onclick="deleterow('place')">Usuń</button></td>
+                                <td><input disabled="" type="text" name="place" id="place"></td>
                             </tr>
                             <tr>
-                                <td><label for="code">Kod: </label></td>
-                                <td><input type="text" name="code" id="code" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000" maxlength="6"></td>
+                                <td> <input type="text" id="code" value="Kod: "><button onclick="deleterow('code')">Usuń</button></td>
+                                <td><input disabled="" type="text" name="code" id="code" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000" maxlength="6"></td>
                             </tr>
                             <tr>
-                                <td><label for="street">Ulica: </label></td>
-                                <td><input type="text" name="street" id="street"></td>
+                                <td> <input type="text" id="street" value="Ulica: "><button onclick="deleterow('street')">Usuń</button></td>
+                                <td><input disabled="" type="text" name="street" id="street"></td>
                             </tr>
                             <tr>
-                                <td><label for="phone">Telefon: </label></td>
-                                <td><input type="tel" name="phone" id="phone"></td>
+                                <td> <input type="text" id="phone" value="Telefon: "><button onclick="deleterow('phone')">Usuń</button></td>
+                                <td><input disabled="" type="tel" name="phone" id="phone"></td>
                             </tr>
                             <tr>
-                                <td><label for="mail">Adres e-mail: </label></td>
-                                <td><input type="email" name="mail" id="mail"></td>
+                                <td> <input type="text" id="mail" value="Adres e-mail: "><button onclick="deleterow('mail')">Usuń</button></td>
+                                <td><input disabled="" type="email" name="mail" id="mail"></td>
                             </tr>
-                        </table>
+                        </tbody></table>
                     </fieldset>
                     <fieldset>
                         <legend>Inne</legend>
                         <table>
-                            <tr>
-                                <td><label for="disabled">Urzeń/Urzennica z niepełnosprawnością:</label></td>
+                            <tbody><tr>
+                                <td> <input type="text" id="disabled" value="Urzeń/Urzennica z niepełnosprawnością:"><button onclick="deleterow('disabled')">Usuń</button></td>
                                 <td>
-                                    Tak<input type="radio" name="disabled" id="disabledT">
-                                    Nie<input type="radio" name="disabled" id="disabledF">
+                                    Tak<input disabled="" type="radio" name="disabled" id="disabledT">
+                                    Nie<input disabled="" type="radio" name="disabled" id="disabledF">
                                 </td>
                             </tr>
                             <tr>
-                                <td><label for="opinion">Urzeń/Urzennica z opinią lub orzeczeniem: </label></td>
+                                <td> <input type="text" id="opinion" value="Urzeń/Urzennica z opinią lub orzeczeniem: "><button onclick="deleterow('opinion')">Usuń</button></td>
                                 <td>
-                                    Tak<input type="radio" name="opinion" id="opinionT">
-                                    Nie<input type="radio" name="opinion" id="opinionF">
+                                    Tak<input disabled="" type="radio" name="opinion" id="opinionT">
+                                    Nie<input disabled="" type="radio" name="opinion" id="opinionF">
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                             </tr>
-                        </table>
+                        </tbody></table>
                     </fieldset>
 
                 </form>
             </div>
         </div>
-    </main>
+    <div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" name="" id="spacename" placeholder="Nazwa pola"> <select name="np" id="np"><option value="">Text</option><option value="">Radio</option><option value="">Password</option><option value="">E-mail</option><option value="">Checkbox</option><option value="">File</option><option value="">Checkbox</option></select><select name="" id=""><option value="">Dane personalne</option><option value="">Dane kontaktowe</option><option value="">Inne</option></select> <br><input type="submit" value="Cofnij Zmiany"><br><input type="submit" value="Zapisz Zmiany"><br></div></div></main>
     <footer>
         <div class="center">
-            Copyright &copy; - Zespół Szkół Elektronicznych w Zduńskiej Woli <br> 
+            Copyright © - Zespół Szkół Elektronicznych w Zduńskiej Woli <br> 
         </div>
     </footer>
-<script src='../AdminPanel/modules/modify.js'></script></body>
-</html>
+<script src="../AdminPanel/modules/modify.js"></script>
+</body></html>
