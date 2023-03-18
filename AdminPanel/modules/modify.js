@@ -49,7 +49,7 @@ var convertForm = {
         var main = document.querySelector("main");
         var result = getFromBetween.get(main.innerHTML,'<label','</label>');
         //console.log(result);
-        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
+        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
         if(!document.getElementById("spacename")){
             main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
 
@@ -96,58 +96,79 @@ function deleterow(rowid){
     var elem = document.getElementById(rowid);
     elem.parentElement.parentElement.remove();
 }
+class createElement{
+    constructor(){
+        this.inputtype = document.getElementById('inputtype');
+        this.inputplace = document.getElementById('inputplace');
+        if(!document.getElementById(document.getElementById("spacename").value)){
+            this.val = document.getElementById("spacename").value;
+        }else{
+            this.val = "Wartosc";
+        }
+        this.type = inputtype.options[inputtype.selectedIndex].value;
+        this.place = inputplace.options[inputplace.selectedIndex].value;
+    }
+    createUserInput(){
+        const input = document.createElement("input")
+        input.setAttribute("type", this.type);
+        input.setAttribute("name", this.val);
+        input.setAttribute("id", this.val);
+        input.setAttribute("disabled", true);
+        input.setAttribute("required", true);
+        return input;
+    }
+    createAdminInput(){
+        const input = document.createElement("input")
+        input.setAttribute("type", "text");
+        input.setAttribute("value", this.val);
+        return input;
+    }
+    createButton(){
+        const button = document.createElement("button");
+        button.innerHTML = "Usuń";
+        button.setAttribute("onclick", 'deleterow(\''+this.val+'\')');
+        return button;
+    }
+    createRow(){
+        const row = document.createElement("tr");
+        return row;
+    }
+    createCol(){
+        const col = document.createElement("td");
+        return col;
+    }
+    get getplace(){
+        return document.getElementById(this.place);
+    }
+}
+function addElement(){
+    const element = new createElement();
+    col = element.createCol();
+    col.appendChild(element.createAdminInput());
+    col.appendChild(element.createButton());
+    row = element.createRow();
+    row.appendChild(col);
+    col = element.createCol();
+    col.appendChild(element.createUserInput());
+    row.appendChild(col);
+    element.getplace.appendChild(row);
+}
+async function undoChange(){
+    var formData = new FormData;
+    var fileName = location.pathname.split("/").slice(-1);
+    fileName = decodeURIComponent(fileName);
+    formData.append("formName", fileName);
+    await fetch('../AdminPanel/modules/undoChange.php', {
+        method: 'POST',
+        body: formData
+    });
+    window.location.reload();
+}
 
 window.onbeforeunload = confirmExit;
 async function confirmExit(){
-    await overwriteModifyFile();
-    //alert("confirm exit is being called");
-    return false;
+   await overwriteModifyFile();
+
+    return null;
 }
-
-function addElement(){
-    const inputtype = document.getElementById('inputtype');
-    const inputplace = document.getElementById('inputplace');
-    
-    const val = document.getElementById("spacename").value;
-    const type = inputtype.options[inputtype.selectedIndex].value;
-    const place = inputplace.options[inputplace.selectedIndex].value;
-    
-    // console.log(val);
-    // console.log(type);
-    // console.log(place);
-    
-    
-    //console.log(val);
-    const fieldset = document.getElementById(place);
-    
-    const newtablerow = document.createElement("tr");
-    const newtablecol1 = document.createElement("td");
-    const input1 = document.createElement("input")
-    input1.setAttribute("type", "text");
-    input1.setAttribute("value", val);
-
-    const button = document.createElement("button");
-    button.innerHTML = "Usuń";
-    button.setAttribute("onclick", 'deleterow(\''+val+'\')');
-
-    newtablecol1.appendChild(input1);
-    newtablecol1.appendChild(button);
-    newtablerow.appendChild(newtablecol1);
-
-    const newtablecol = document.createElement("td");
-    const input = document.createElement("input")
-    input.setAttribute("type", type);
-    input.setAttribute("name", val);
-    input.setAttribute("id", val);
-    input.setAttribute("disabled", true);
-
-    newtablecol.appendChild(input)
-    newtablerow.appendChild(newtablecol);
-    
-    fieldset.appendChild(newtablerow);
-    
-    
-}
-
-
 convertForm.convertIntoAdminPanel();
