@@ -49,7 +49,7 @@ var convertForm = {
         var main = document.querySelector("main");
         var result = getFromBetween.get(main.innerHTML,'<label','</label>');
         //console.log(result);
-        var textadd = '<div class="center"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
+        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
         if(!document.getElementById("spacename")){
             main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
 
@@ -60,7 +60,7 @@ var convertForm = {
         result.forEach(element => {
             var input = element;
             var rowid = getFromBetween.getone(input,'"','"');
-            console.log(input);
+            //console.log(input);
             input =  input.replace('for=\"'+rowid+'\"', '<input type="text"');
             input =  input.replace('>', ' value="');
             input = input+'\"><button onclick="deleterow(\''+rowid+'\')">Usuń</button>';
@@ -72,15 +72,51 @@ var convertForm = {
         //console.log(document.body.innerHTML);
     }, 
     convertintoUserForm:function(){ 
-        
+        document.getElementById("modipanel").remove();
+        selectiontr = document.querySelectorAll('tr');
+        selectiontr.forEach(tr => {
+            if(tr.children[0].children[0] != undefined){
+                //get id for label we create
+                let id = tr.children[1].children[0].getAttribute('id');
+
+                //create new label
+                let newlabel = document.createElement('label');
+                newlabel.setAttribute('for', id);
+                newlabel.innerHTML = tr.children[0].children[0].getAttribute('value');
+                //replace element 
+                deleteAllChild(tr.children[0])
+                tr.children[0].appendChild(newlabel);
+
+                //create new userinput 
+                var newuserinput = [];
+                for(let i=0; i<tr.children[1].children.length; i++){
+
+                    let userinput = tr.children[1].children[i];
+                    userinput.removeAttribute('disabled');
+                    newuserinput.push(userinput);
+                }
+                //replece element
+                deleteAllChild(tr.children[1]);
+                newuserinput.forEach(elemnet =>{
+                    tr.children[1].appendChild(elemnet);
+                });
+            }
+        });
+        function deleteAllChild(myNode){
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.lastChild);
+            }
+        }
+
+
     }
 };
 
 async function overwriteModifyFile(){
-    var formData = new FormData;
-    var fileName = location.pathname.split("/").slice(-1);
+    let formData = new FormData;
+    let fileName = location.pathname.split("/").slice(-1);
     fileName = decodeURIComponent(fileName);
-    var content = document.body.innerHTML;
+    let content = document.body.innerHTML;
     formData.append("content", content);
     formData.append("formName", fileName);
     //console.log(formData);
@@ -93,7 +129,7 @@ async function overwriteModifyFile(){
 }
 
 function deleterow(rowid){
-    var elem = document.getElementById(rowid);
+    let elem = document.getElementById(rowid);
     elem.parentElement.parentElement.remove();
 }
 class createElement{
@@ -154,8 +190,8 @@ function addElement(){
     element.getplace.appendChild(row);
 }
 async function undoChange(){
-    var formData = new FormData;
-    var fileName = location.pathname.split("/").slice(-1);
+    let formData = new FormData;
+    let fileName = location.pathname.split("/").slice(-1);
     fileName = decodeURIComponent(fileName);
     formData.append("formName", fileName);
     await fetch('../AdminPanel/modules/undoChange.php', {
@@ -165,10 +201,11 @@ async function undoChange(){
     window.location.reload();
 }
 
-window.onbeforeunload = confirmExit;
-async function confirmExit(){
-   await overwriteModifyFile();
+// window.onbeforeunload = confirmExit;
+// async function confirmExit(){
+//    await overwriteModifyFile();
 
-    return null;
-}
+//     return null;
+// }
 convertForm.convertIntoAdminPanel();
+console.log(document.querySelectorAll('tr'));
