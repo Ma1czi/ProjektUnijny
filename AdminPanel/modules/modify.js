@@ -1,114 +1,77 @@
-
-var getFromBetween = {
-    results:[],
-    string:"",
-    getFromBetween:function (sub1,sub2) {
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
-        var SP = this.string.indexOf(sub1)+sub1.length;
-        var string1 = this.string.substr(0,SP);
-        var string2 = this.string.substr(SP);
-        var TP = string1.length + string2.indexOf(sub2);
-        return this.string.substring(SP,TP);
-    },
-    removeFromBetween:function (sub1,sub2) {
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
-        var removal = sub1+this.getFromBetween(sub1,sub2)+sub2;
-        this.string = this.string.replace(removal,"");
-    },
-    getAllResults:function (sub1,sub2) {
-        // first check to see if we do have both substrings
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return;
-
-        //  input one result
-        var result = this.getFromBetween(sub1,sub2);
-        // push it to the results array
-        this.results.push(result);
-        // remove the most recently found one from the string
-        this.removeFromBetween(sub1,sub2);
-
-        // if there's more substrings
-        if(this.string.indexOf(sub1) > -1 && this.string.indexOf(sub2) > -1) {
-            this.getAllResults(sub1,sub2);
-        }
-        else return;
-    },
-    get:function (string,sub1,sub2) {
-        this.results = [];
-        this.string = string;
-        this.getAllResults(sub1,sub2);
-        return this.results;
-    },
-    getone:function(string,sub1,sub2){
-        this.string = string;
-        return this.getFromBetween(sub1,sub2);
-    }
-};
-
 var convertForm = {
     convertIntoAdminPanel:function(){
         var main = document.querySelector("main");
-        var result = getFromBetween.get(main.innerHTML,'<label','</label>');
-        //console.log(result);
-        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
-        if(!document.getElementById("spacename")){
-            main.innerHTML = main.innerHTML.replace(/<input/g, '<input disabled');
-
-            main.innerHTML = main.innerHTML+textadd;
-
-        }
-
-        result.forEach(element => {
-            var input = element;
-            var rowid = getFromBetween.getone(input,'"','"');
-            //console.log(input);
-            input =  input.replace('for=\"'+rowid+'\"', '<input type="text"');
-            input =  input.replace('>', ' value="');
-            input = input+'\"><button onclick="deleterow(\''+rowid+'\')">Usuń</button>';
-            //console.log(input);
-            var find = '<label'+element+'</label>';
-            //console.log(rowid);
-            main.innerHTML = main.innerHTML.replace(find, input);
+        //disabled all input
+        let allinput = document.querySelectorAll('input');
+        allinput.forEach(elemnent =>{
+            elemnent.setAttribute('disabled', 'true');
         });
-        //console.log(document.body.innerHTML);
+        //change all label to input
+        let alllabel = document.querySelectorAll('label');
+        alllabel.forEach(label =>{
+
+            //get information about label
+            let labelfor = label.getAttribute('for');
+            let labelinnerHTML = label.innerHTML;
+
+            //create new input that replace label
+            let newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('value', labelinnerHTML);
+            newInput.setAttribute('name', labelfor);
+
+            //create new button that delete row
+            if(label.parentElement == label.parentElement.parentElement.children[0]){
+                let newButton = document.createElement('button');
+                newButton.setAttribute('onClick', 'deleterow(\''+labelfor+'\')');
+                newButton.innerHTML = "Usuń";
+                label.parentNode.appendChild(newButton);
+            }
+            label.replaceWith(newInput);
+        });
+        //change title into input
+        let title = document.getElementById('tytul');
+        let input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', 'title');
+        input.setAttribute('value', title.innerHTML);
+        title.innerHTML = "";
+        title.appendChild(input);
+        //add adminpanel
+        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
+        main.innerHTML = main.innerHTML+textadd;
     }, 
     convertintoUserForm:function(){ 
         document.getElementById("modipanel").remove();
-        selectiontr = document.querySelectorAll('tr');
-        selectiontr.forEach(tr => {
-            if(tr.children[0].children[0] != undefined){
-                //get id for label we create
-                let id = tr.children[1].children[0].getAttribute('id');
+        let allinput = document.querySelectorAll('input');
+        allinput.forEach(input =>{
+            if(input.getAttribute('id') == null){
+                //get information about input
+                let inputvalue = input.getAttribute('value');
+                let inputname = input.getAttribute('name');
 
-                //create new label
+                //create and set new label
                 let newlabel = document.createElement('label');
-                newlabel.setAttribute('for', id);
-                newlabel.innerHTML = tr.children[0].children[0].getAttribute('value');
-                //replace element 
-                deleteAllChild(tr.children[0])
-                tr.children[0].appendChild(newlabel);
-
-                //create new userinput 
-                var newuserinput = [];
-                for(let i=0; i<tr.children[1].children.length; i++){
-
-                    let userinput = tr.children[1].children[i];
-                    userinput.removeAttribute('disabled');
-                    newuserinput.push(userinput);
+                newlabel.setAttribute('for', inputname);
+                newlabel.innerHTML = inputvalue;
+                if(input.parentElement.querySelector('button')){
+                    input.parentElement.querySelector('button').remove();
                 }
-                //replece element
-                deleteAllChild(tr.children[1]);
-                newuserinput.forEach(elemnet =>{
-                    tr.children[1].appendChild(elemnet);
-                });
+                input.replaceWith(newlabel);
+            }else if(input.getAttribute('id') == 'title'){
+                input.parentElement.innerHTML = input.getAttribute('value');
+            }else{
+                input.removeAttribute('disabled');
+
             }
         });
+
+
         function deleteAllChild(myNode){
             while (myNode.firstChild) {
                 myNode.removeChild(myNode.lastChild);
             }
         }
-
-
     }
 };
 
@@ -207,5 +170,8 @@ async function undoChange(){
 
 //     return null;
 // }
-convertForm.convertIntoAdminPanel();
-console.log(document.querySelectorAll('tr'));
+// convertForm.convertIntoAdminPanel();
+// convertForm.convertintoUserForm();
+
+
+console.log(document.body.innerHTML);

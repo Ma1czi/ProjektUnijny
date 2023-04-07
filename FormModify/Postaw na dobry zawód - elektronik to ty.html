@@ -19,7 +19,7 @@
     <main id="main">
         <div class="center">
             <div class="playground" style="margin-top: 30px;"> 
-                <h4>Tu będzie nazwa formularzu</h4>
+                <h4 id="tytul">Tu będzie nazwa formularzu</h4>
                 <form action="" method="post">
                     <fieldset>
                         <legend>Dane personalne</legend>
@@ -73,15 +73,15 @@
                             <tr>
                                 <td><label for="disabled">Urzeń/Urzennica z niepełnosprawnością:</label></td>
                                 <td>
-                                    Tak<input type="radio" name="disabled" id="disabledT">
-                                    Nie<input type="radio" name="disabled" id="disabledF" checked>
+                                    <label for="disabledT">Tak</label><input type="radio" name="disabled" id="disabledT">
+                                    <label for="disabledF">Nie</label><input type="radio" name="disabled" id="disabledF" checked>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="opinion">Urzeń/Urzennica z opinią lub orzeczeniem: </label></td>
                                 <td>
-                                    Tak<input type="radio" name="opinion" id="opinionT">
-                                    Nie<input type="radio" name="opinion" id="opinionF" checked>
+                                    <label for="opinionT">Tak</label><input type="radio" name="opinion" id="opinionT">
+                                    <label for="opinion">Nie</label><input type="radio" name="opinion" id="opinionF" checked>
                                 </td>
                             </tr>
                         </table>
