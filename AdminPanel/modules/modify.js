@@ -38,16 +38,17 @@ var convertForm = {
         title.innerHTML = "";
         title.appendChild(input);
         //add adminpanel
-        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="">Zapisz zmiany</button><br></div></div>';
+        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="saveChange()">Zapisz zmiany</button><br></div></div>';
         main.innerHTML = main.innerHTML+textadd;
     }, 
     convertintoUserForm:function(){ 
         document.getElementById("modipanel").remove();
         let allinput = document.querySelectorAll('input');
         allinput.forEach(input =>{
+
             if(input.getAttribute('id') == null){
                 //get information about input
-                let inputvalue = input.getAttribute('value');
+                let inputvalue = input.value;
                 let inputname = input.getAttribute('name');
 
                 //create and set new label
@@ -59,23 +60,17 @@ var convertForm = {
                 }
                 input.replaceWith(newlabel);
             }else if(input.getAttribute('id') == 'title'){
-                input.parentElement.innerHTML = input.getAttribute('value');
+                input.parentElement.innerHTML = input.value;
             }else{
                 input.removeAttribute('disabled');
 
             }
         });
-
-
-        function deleteAllChild(myNode){
-            while (myNode.firstChild) {
-                myNode.removeChild(myNode.lastChild);
-            }
-        }
     }
 };
 
 async function overwriteModifyFile(){
+    convertForm.convertintoUserForm();
     let formData = new FormData;
     let fileName = location.pathname.split("/").slice(-1);
     fileName = decodeURIComponent(fileName);
@@ -87,6 +82,7 @@ async function overwriteModifyFile(){
         method: 'POST',
         body: formData
     });
+    convertForm.convertIntoAdminPanel();
     //alert("dsa");
     return null;
 }
@@ -94,6 +90,7 @@ async function overwriteModifyFile(){
 function deleterow(rowid){
     let elem = document.getElementById(rowid);
     elem.parentElement.parentElement.remove();
+    overwriteModifyFile();
 }
 class createElement{
     constructor(){
@@ -163,15 +160,27 @@ async function undoChange(){
     });
     window.location.reload();
 }
+document.body.onchange = function(){
+    overwriteModifyFile();
+};
+async function saveChange(){
+    convertForm.convertintoUserForm();
+    let formData = new FormData;
+    let fileName = location.pathname.split("/").slice(-1);
+    fileName = decodeURIComponent(fileName);
+    let content = document.body.innerHTML;
+    formData.append("content", content);
+    formData.append("formName", fileName);
+    //console.log(formData);
+    await fetch('../AdminPanel/modules/saveChange.php', {
+        method: 'POST',
+        body: formData
+    });
+    convertForm.convertIntoAdminPanel();
+    //alert("dsa");
+    return null;
+}
 
-// window.onbeforeunload = confirmExit;
-// async function confirmExit(){
-//    await overwriteModifyFile();
-
-//     return null;
-// }
-// convertForm.convertIntoAdminPanel();
+convertForm.convertIntoAdminPanel();
 // convertForm.convertintoUserForm();
-
-
 console.log(document.body.innerHTML);
