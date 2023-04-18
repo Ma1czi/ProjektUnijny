@@ -1,5 +1,7 @@
 var convertForm = {
     convertIntoAdminPanel:function(){
+        let playground = document.getElementsByClassName('playground')[0];
+        playground.setAttribute('onchange', 'findchange()');
         var main = document.querySelector("main");
         //disabled all input
         let allinput = document.querySelectorAll('input');
@@ -42,6 +44,8 @@ var convertForm = {
         main.innerHTML = main.innerHTML+textadd;
     }, 
     convertintoUserForm:function(){ 
+        let playground = document.getElementsByClassName('playground')[0];
+        playground.removeAttribute('onchange');
         document.getElementById("modipanel").remove();
         let allinput = document.querySelectorAll('input');
         allinput.forEach(input =>{
@@ -87,7 +91,7 @@ async function overwriteModifyFile(){
     return null;
 }
 
-function deleterow(rowid){
+async function deleterow(rowid){
     let elem = document.getElementById(rowid);
     elem.parentElement.parentElement.remove();
     overwriteModifyFile();
@@ -96,6 +100,11 @@ class createElement{
     constructor(){
         this.inputtype = document.getElementById('inputtype');
         this.inputplace = document.getElementById('inputplace');
+        if(document.getElementById('quantity') != null){
+            let inputquantity = document.getElementById('quantity');
+            this.quantity = inputquantity.options[inputquantity.selectedIndex].value;
+        }
+
         if(!document.getElementById(document.getElementById("spacename").value)){
             this.val = document.getElementById("spacename").value;
         }else{
@@ -105,18 +114,51 @@ class createElement{
         this.place = inputplace.options[inputplace.selectedIndex].value;
     }
     createUserInput(){
-        const input = document.createElement("input")
-        input.setAttribute("type", this.type);
-        input.setAttribute("name", this.val);
-        input.setAttribute("id", this.val);
-        input.setAttribute("disabled", true);
-        input.setAttribute("required", true);
-        return input;
+        if(document.getElementById('quantity') == null){
+            let input = document.createElement("input")
+            let col = document.createElement('td');
+            input.setAttribute("type", this.type);
+            input.setAttribute("name", this.val);
+            input.setAttribute("id", this.val);
+            input.setAttribute("disabled", true);
+            input.setAttribute("required", true);
+            col.appendChild(input);
+            return col;
+        }else{
+            let col = document.createElement('td');
+            for(let i=0; i<this.quantity; i++){
+                //create newinput
+                let newinput = document.createElement('input');
+                newinput.setAttribute('type', this.type);
+                if(i == 0){
+                    newinput.setAttribute("name", this.val);
+                    newinput.setAttribute("id", this.val);
+                    newinput.setAttribute("checked", 'true');
+                }else{
+                    newinput.setAttribute("name", this.val);
+                    newinput.setAttribute("id", this.val+i);
+                }
+                newinput.setAttribute("disabled", true);
+
+                //create newinput that will be label in usermode
+                let newlabel = document.createElement('input');
+                newlabel.setAttribute('type', 'text');
+                newlabel.setAttribute('value', i);
+                if(i==0)
+                    newlabel.setAttribute('name', this.val);
+                else
+                    newlabel.setAttribute('name', this.val+i);
+                col.appendChild(newlabel);
+                col.appendChild(newinput);
+            }
+            return col;
+        }
     }
     createAdminInput(){
         const input = document.createElement("input")
         input.setAttribute("type", "text");
         input.setAttribute("value", this.val);
+        input.setAttribute("name", this.val);
         return input;
     }
     createButton(){
@@ -144,10 +186,9 @@ function addElement(){
     col.appendChild(element.createButton());
     row = element.createRow();
     row.appendChild(col);
-    col = element.createCol();
-    col.appendChild(element.createUserInput());
-    row.appendChild(col);
+    row.appendChild(element.createUserInput());
     element.getplace.appendChild(row);
+    overwriteModifyFile();
 }
 async function undoChange(){
     let formData = new FormData;
@@ -160,9 +201,9 @@ async function undoChange(){
     });
     window.location.reload();
 }
-document.body.onchange = function(){
+function findchange(){
     overwriteModifyFile();
-};
+}
 async function saveChange(){
     convertForm.convertintoUserForm();
     let formData = new FormData;
@@ -181,6 +222,30 @@ async function saveChange(){
     return null;
 }
 
+
 convertForm.convertIntoAdminPanel();
+document.getElementById('modipanel').onchange = function(){
+    let type = document.getElementById('inputtype');
+    let place = document.getElementById('inputplace');
+    //create new input
+    let newinput = document.createElement('select');
+    newinput.setAttribute('id', 'quantity');
+    for(let i=1; i<=3; i++){
+        let newoption = document.createElement('option');
+        newoption.innerHTML = i;
+        newoption.setAttribute('value', i);
+        newinput.appendChild(newoption);
+    }
+
+    if(type.value == 'radio' || type.value =='checkbox'){
+        if(document.getElementById('quantity') == null){
+            place.parentNode.insertBefore(newinput, place);
+        }
+    }else{
+        if(document.getElementById('quantity') != null){
+            document.getElementById('quantity').remove();
+        }
+    }
+};
 // convertForm.convertintoUserForm();
 console.log(document.body.innerHTML);
