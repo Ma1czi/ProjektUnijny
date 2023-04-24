@@ -3,9 +3,12 @@ input{
     border: none;
     border-radius: 50px;
     background-color: rgb(43, 42, 51);
+    text-align: center;
+    transition: width 1s;
 }
 input:focus{
     outline: none;
+    background-color: rgb(29, 28, 34);
 }
 fieldset{
     border-color: rgb(103, 109, 112);
@@ -13,4 +16,27 @@ fieldset{
 }
 h4{
     text-align: center;
+}
+select{
+    color: white;
+    border: none;
+    border-radius: 50px;
+    background-color: rgb(43, 42, 51);
+}
+#modipanel button{
+    background-color: rgb(43, 42, 51);
+    border-radius: 50px;
+}
+#modipanel button:hover{
+    background-color: rgb(72, 71, 80);
+}
+details > div{
+    position: relative;
+    right: 220px;
+    width: 240px;
+    text-align: center;
+    border-radius: 50px;
+    color: rgb(152, 235, 228);
+    border: 1px rgb(15, 81, 202) solid;
+    background-color: rgb(49, 53, 54);;
 }

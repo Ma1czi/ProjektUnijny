@@ -26,7 +26,7 @@ var convertForm = {
             if(label.parentElement == label.parentElement.parentElement.children[0]){
                 let newButton = document.createElement('button');
                 newButton.setAttribute('onClick', 'deleterow(\''+labelfor+'\')');
-                newButton.innerHTML = "Usuń";
+                newButton.innerHTML = "<div class='trash'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z' fill='currentColor'/><path d='M9 9H11V17H9V9Z' fill='currentColor' /><path d='M13 9H15V17H13V9Z' fill='currentColor' /></svg></div>";
                 label.parentNode.appendChild(newButton);
             }
             label.replaceWith(newInput);
@@ -40,7 +40,7 @@ var convertForm = {
         title.innerHTML = "";
         title.appendChild(input);
         //add adminpanel
-        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px;"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="radio">Radio</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="saveChange()">Zapisz zmiany</button><br></div></div>';
+        var textadd = '<div class="center" id="modipanel"><div class="playground" style="margin-top: 30px; display:flex; height: 60px;"><div style="width: calc(100% - 30px);"><button onclick="addElement()">Dodaj</button><input type="text" id="spacename" placeholder="Nazwa pola"> <select id="inputtype"><option value="text">Text</option><option value="password">Password</option><option value="email">E-mail</option><option value="checkbox">Checkbox</option><option value="file">File</option><option value="radio">Radio</option></select><select id="inputplace"><option value="Dane personalne">Dane personalne</option><option value="Dane kontaktowe">Dane kontaktowe</option><option value="Inne">Inne</option></select> <br><button onclick="undoChange()">Cofnij Zmiany</button><br><button onclick="saveChange()">Zapisz zmiany</button><br></div><div style="width: 30px; color:white;"><details><summary><div class="info"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="info"><g data-name="Layer 2"><g data-name="info"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><circle cx="12" cy="8" r="1"></circle><path d="M12 10a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0v-5a1 1 0 0 0-1-1z"></path></g></g></svg></div></summary><div><b>Lista nazw wyjątkowych:</b> <br><q>Emial</q> - dodaje wymóg użycia @.<q>Kod</q> - dodaje wymóg użycia składni 00-000. <br></div></details></div></div></div>';
         main.innerHTML = main.innerHTML+textadd;
     }, 
     convertintoUserForm:function(){ 
@@ -148,8 +148,8 @@ class createElement{
                     newlabel.setAttribute('name', this.val);
                 else
                     newlabel.setAttribute('name', this.val+i);
-                col.appendChild(newlabel);
-                col.appendChild(newinput);
+                    col.appendChild(newlabel);
+                    col.appendChild(newinput);
             }
             return col;
         }
@@ -163,7 +163,7 @@ class createElement{
     }
     createButton(){
         const button = document.createElement("button");
-        button.innerHTML = "Usuń";
+        button.innerHTML = "<div class='trash'><svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z' fill='currentColor'/><path d='M9 9H11V17H9V9Z' fill='currentColor' /><path d='M13 9H15V17H13V9Z' fill='currentColor' /></svg></div>";
         button.setAttribute("onclick", 'deleterow(\''+this.val+'\')');
         return button;
     }
