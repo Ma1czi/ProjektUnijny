@@ -35,7 +35,6 @@ if (!$f) {
 
 
 
-
 header('Location: ../index.php');
 
 ?>
