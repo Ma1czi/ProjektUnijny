@@ -4,8 +4,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $content = $_POST['content'];
     $adminFormFolderPath = "../../FormModify/";
     $userFormFolderPath = "../../Form/";
+    $modifyLogs = "../../ModifyLogs/";
     $adminFormPath = $adminFormFolderPath.$formName;
     $userFormPath = $userFormFolderPath.$formName;
+    $logspath = $modifyLogs.$formName;
+    $logspath = str_replace(".html", ".txt", $logspath);
 
     //overwrite adminForm
     if(file_exists($adminFormPath)){
@@ -28,5 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else{
         die("Error: File doesn't exist: $adminFormPath");
         return($userFormPath);
+    }
+
+    //update db table
+    include_once('../../ConnDB/cleanString.php');
+    include_once('../../ConnDB/tablemanager.php');
+    if(file_exists($logspath)){
+        $tname = str_replace(".html", "", $formName);
+        $tname = cleanString($tname);
+        updateTable(file_get_contents($logspath), $tname);
+        file_put_contents($logspath, "");
     }
 }

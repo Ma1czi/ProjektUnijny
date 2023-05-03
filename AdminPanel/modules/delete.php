@@ -2,12 +2,15 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filepath = "../../Form/";
     $adminfilepath = "../../FormModify/";
+    $logspath = "../../ModifyLogs/";
     $adminfilepath .= $_POST['filepath'];
     $filepath .= $_POST['filepath'];
+    $logspath .= $_POST['filepath'];
+    $logspath = str_replace(".html", ".txt", $logspath);
 
     unlink($adminfilepath);
     unlink($filepath);
-    unlink('../../FormModify/'.$_POST['filepath']);
+    unlink($logspath);
 
 
     include_once('../../ConnDB/connDB.php');

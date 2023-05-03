@@ -108,6 +108,7 @@ async function overwriteModifyFile(){
     let content = document.body.innerHTML;
     formData.append("content", content);
     formData.append("formName", fileName);
+    formData.append("logs", clog.logs);
     //console.log(formData);
     await fetch('../AdminPanel/modules/overwriteForm.php', {
         method: 'POST',
@@ -270,8 +271,7 @@ async function saveChange(){
         body: formData
     });
     convertForm.convertIntoAdminPanel();
-    //alert("dsa");
-    return null;
+    clog.resetlog();
 }
 if(document.getElementById('modipanel') != null){
     document.getElementById('modipanel').onchange = function(){
@@ -301,6 +301,6 @@ if(document.getElementById('modipanel') != null){
 // convertForm.convertintoUserForm();
 convertForm.convertIntoAdminPanel();
 var clog = new log();
-console.log(document.body.innerHTML);
+//console.log(document.body.innerHTML);
 //console.log(clog.logs);
 // [Imie: | drop] Nazwisko: | cos:; wzrost: | add;
