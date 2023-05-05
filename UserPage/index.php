@@ -5,7 +5,9 @@ function displayformslist(){
     foreach (new DirectoryIterator($folderpath) as $file) {
         if($file->isDot()) continue;
         $filepath = $folderpath.$file->getFilename();
-        echo "<li><a href='$filepath'>".preg_replace('/.html/i', '', $file->getFilename())."</a></li>";
+        if(strpos($filepath, '.off') === false){
+            echo "<li><a href='$filepath'>".preg_replace('/.html/i', '', $file->getFilename())."</a></li>";
+        }
     }
     echo "</ul>";
 }

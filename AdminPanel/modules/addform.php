@@ -2,7 +2,7 @@
 $newformname = "Postaw na dobry zawód - elektronik to ty";
 $formFolderPath = "../../Form/";
 $formModifyFolderPath = "../../FormModify/";
-$filetype = ".html";
+$filetype = ".off.html";
 $jsmodifyfilepath = "../AdminPanel/modules/modify.js";
 
 
