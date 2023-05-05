@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $adminFormPath = $adminFormFolderPath.$formName;
     $userFormPath = $userFormFolderPath.$formName;
     $logspath = $modifyLogs.$formName;
+    $logspath = str_replace(".off", "", $logspath);
     $logspath = str_replace(".html", ".txt", $logspath);
 
     //overwrite adminForm

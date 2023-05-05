@@ -94,3 +94,12 @@ button{
 .eye:hover >svg path{
     fill: rgb(132, 132, 132);
 }
+.loop >svg path{
+    fill: white;
+}
+.loop{
+    width: 24px;
+}
+.loop:hover >svg path{
+    fill: rgb(18, 90, 138);
+}

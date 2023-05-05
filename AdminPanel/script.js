@@ -26,3 +26,6 @@ async function changeEye(eyeid, filepath){
     });
     window.location.reload();
 }
+function loop(){
+    alert("Podczas pracy");
+}
