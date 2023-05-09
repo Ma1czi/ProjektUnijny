@@ -40,3 +40,32 @@ details > div{
     border: 1px rgb(15, 81, 202) solid;
     background-color: rgb(49, 53, 54);;
 }
+.send svg path{
+    fill: white;
+}
+.send:hover svg path{
+    fill: rgb(134, 134, 134);
+}
+.send{
+    width: 24px;
+}
+#sendbutton{
+    padding: 3px;
+    height: 24px;
+    position: relative;
+}
+#sendbutton > div{
+    display: flex;
+    position: absolute;
+    width: fit-content;
+    right: 0;
+}
+.reset svg path{
+    fill:white;
+}
+.reset:hover svg path{
+    fill:rgb(134, 134, 134);
+}
+.reset{
+    width: 24px;
+}

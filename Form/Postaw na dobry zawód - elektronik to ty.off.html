@@ -25,18 +25,12 @@
                     <fieldset>
                         <legend>Dane personalne</legend>
                         <table id="Dane personalne">
-                            <tbody><tr>
-                                <td><label for="Imię:">Imię:</label></td>
-                                <td><input type="text" name="Imię:" id="Imię:" required=""></td>
-                            </tr>
+                            <tbody>
                             <tr>
-                                <td><label for="Nazwisko:">Nazwisko:</label></td>
-                                <td><input type="text" name="Nazwisko:" id="Nazwisko:" required=""></td>
+                                <td><label for="Imie i nazwisko">Imie i nazwisko</label></td>
+                                <td><input type="text" name="Imie i nazwisko" id="Imie i nazwisko" required=""></td>
                             </tr>
-                            <tr>
-                                <td><label for="Pesel:">Pesel:</label></td>
-                                <td><input type="text" name="Pesel:" id="Pesel:" maxlength="11" pattern="[0-9]{11}" required=""></td>
-                            </tr>
+                            
                         </tbody></table>
                     </fieldset>
                     <fieldset>
@@ -75,7 +69,7 @@
                                 <td><label for="Urzeń/Urzennica z niepełnosprawnością:">Urzeń/Urzennica z niepełnosprawnością:</label></td>
                                 <td>
                                     <label for="Urzeń/Urzennica z niepełnosprawnością:">Tak</label><input type="radio" name="Urzeń/Urzennica z niepełnosprawnością:" id="Urzeń/Urzennica z niepełnosprawnością:" value="Tak">
-                                    <label for="Urzeń/Urzennica z niepełnosprawnością:1">Nie</label><input type="radio" name="Urzeń/Urzennica z niepełnosprawnością:" id="Urzeń/Urzennica z niepełnosprawnością:1" checked="" value="Okk">
+                                    <label for="Urzeń/Urzennica z niepełnosprawnością:1">Nie</label><input type="radio" name="Urzeń/Urzennica z niepełnosprawnością:" id="Urzeń/Urzennica z niepełnosprawnością:1" checked="" value="Nie">
                                 </td>
                             </tr>
                             <tr>
@@ -87,7 +81,27 @@
                             </tr>
                         </tbody></table>
                     </fieldset>
-                    <button type="submit">Wyślij</button>
+
+                    <br>
+                    <div id="sendbutton">
+                        <div>
+
+                            <div>
+                                <button type="reset"><div class="reset"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="reset"><path d="M37.707 9.586c-13.234 0-24 10.766-24 24v13.171l-8.586-8.585L2.293 41l13.414 13.414L29.121 41l-2.828-2.828-8.586 8.585V33.586c0-11.028 8.972-20 20-20s20 8.972 20 20c0 5.342-2.08 10.364-5.858 14.143l2.829 2.828a23.846 23.846 0 0 0 7.029-16.971c0-13.234-10.766-24-24-24z"></path></svg></div></button>
+                            </div>
+                            <div>
+                                <button type="submit"><div class="send"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 16 16" viewBox="0 0 16 16" id="send"><g display="none"><polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="11.5 10.5 9.5 15.5 6.5 9.5 .5 6.5 15.5 .5 12.2 8.8"></polyline><polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="5.5 9 5.5 12.5 7.5 11.5"></polyline><line x1="6.5" x2="15" y1="9.5" y2="1" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></line></g><path d="M15.9,0.1C15.7,0,15.5,0,15.3,0l-15,6C0.1,6.1,0,6.3,0,6.5c0,0.2,0.1,0.4,0.3,0.5L5,9.3v3.2
+                                    c0,0.2,0.1,0.3,0.2,0.4C5.3,13,5.4,13,5.5,13c0.1,0,0.2,0,0.2-0.1l1.6-0.8l1.8,3.6C9.1,15.9,9.3,16,9.5,16c0,0,0,0,0,0
+                                    c0.2,0,0.4-0.1,0.4-0.3l2-5c0.1-0.3,0-0.5-0.3-0.6c-0.3-0.1-0.5,0-0.6,0.3l-1.6,4L7.1,9.6l7-7l-2.4,6c-0.1,0.3,0,0.5,0.3,0.6
+                                    c0.3,0.1,0.5,0,0.6-0.3L16,0.7C16,0.5,16,0.3,15.9,0.1z M13.4,1.9l-7,7L1.7,6.6L13.4,1.9z M6,11.7V9.8l0.1,0.1l0.7,1.4L6,11.7z" display="none"></path><polygon fill="#e4f5f7" points="14.5 2.5 14.5 2 13.5 2 13.5 2.9 2.3 7.4 6.5 9.5 9.5 15.5 14.7 2.4"></polygon><polyline fill="#bfdadd" points="5.5 9 5.5 12.5 7.5 11.5"></polyline><path fill="#3e3643" d="M15.9,0.1C15.7,0,15.5,0,15.3,0l-15,6C0.1,6.1,0,6.3,0,6.5c0,0.2,0.1,0.4,0.3,0.5L5,9.3v3.2
+                                        c0,0.2,0.1,0.3,0.2,0.4C5.3,13,5.4,13,5.5,13c0.1,0,0.2,0,0.2-0.1l1.6-0.8l1.8,3.6C9.1,15.9,9.3,16,9.5,16c0,0,0,0,0,0
+                                        c0.2,0,0.4-0.1,0.4-0.3l2-5c0.1-0.3,0-0.5-0.3-0.6c-0.3-0.1-0.5,0-0.6,0.3l-1.6,4L7.1,9.6l7-7l-2.4,6c-0.1,0.3,0,0.5,0.3,0.6
+                                        c0.3,0.1,0.5,0,0.6-0.3L16,0.7C16,0.5,16,0.3,15.9,0.1z M13.4,1.9l-7,7L1.7,6.6L13.4,1.9z M6,11.7V9.8l0.1,0.1l0.7,1.4L6,11.7z"></path></svg></div></button>
+    
+                            </div>
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>
@@ -97,5 +111,4 @@
             Copyright © - Zespół Szkół Elektronicznych w Zduńskiej Woli <br> 
         </div>
     </footer>
-<script src="../AdminPanel/modules/modify.js"></script>
 </body></html>

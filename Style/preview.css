@@ -5,12 +5,40 @@ table, td, tr, th{
 }
 td, th{
     height: 40px;
-    max-width: 10vh;
+    max-width: 14vh;
     min-width: 2vh;
     width: fit-content;
     padding: 10px;
+    word-wrap: break-word;
+    
 }
 #tabletoprint{
     color: black;
     background-color: white;
+    width: fit-content;
+    margin: auto;
+}
+.printer svg path{
+    fill: white;
+}
+.printer:hover svg path{
+    fill: rgb(112, 112, 112);
+}
+.printer{
+    width: 32px;
+}
+.back svg path{
+    fill: white;
+}
+.back:hover svg path{
+    fill: rgb(51, 120, 151);
+}
+.back{
+    width: 32px;
+}
+#button{
+    display: flex;
+    width: fit-content;
+    position: absolute;
+    right: 0;
 }
