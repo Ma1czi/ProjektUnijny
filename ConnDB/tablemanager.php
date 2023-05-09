@@ -1,7 +1,7 @@
 <?php
 function updateTable($logs, $tablename){
     require_once('connDB.php');
-
+    echo $logs.$tablename;
     $result = $db->query("show tables like '{$tablename}'");
     if ($result->num_rows != 0) {
         $logs = explode(",", $logs);

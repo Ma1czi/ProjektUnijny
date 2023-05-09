@@ -21,7 +21,7 @@ var convertForm = {
             newInput.setAttribute('type', 'text');
             newInput.setAttribute('value', labelinnerHTML);
             newInput.setAttribute('name', labelfor);
-            newInput.setAttribute('onchange', 'overwriteModifyFile()');
+            newInput.setAttribute('onchange', 'changevalue(name, value)');
 
             //create new button that delete row
             if(label.parentElement == label.parentElement.parentElement.children[0]){
@@ -236,6 +236,12 @@ async function undoChange(){
         body: formData
     });
     window.location.reload();
+}
+function changevalue(name, value){
+//find all element to change value
+    let input = document.getElementById(name);
+    input.setAttribute('value', value);
+    overwriteModifyFile();
 }
 function findchange(name, value){
     clog.addlog(name, value);

@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $logspath = $modifyLogs.$formName;
     $logspath = str_replace(".html", ".txt", $logspath);
+    $logspath = str_replace(".off", "", $logspath);
     $formModifyPath = $formModifyFolderPath.$formName;
     $formPath = $formFolderPath.$formName;
 

@@ -39,7 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once('../../ConnDB/tablemanager.php');
     if(file_exists($logspath)){
         $tname = str_replace(".html", "", $formName);
+        $tname = str_replace(".off", "", $tname);
         $tname = cleanString($tname);
+        echo $tname;
         updateTable(file_get_contents($logspath), $tname);
         file_put_contents($logspath, "");
     }

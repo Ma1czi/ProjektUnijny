@@ -1,0 +1,16 @@
+table, td, tr, th{
+    text-align: center;
+    border: 2px black solid;
+    border-collapse: collapse;
+}
+td, th{
+    height: 40px;
+    max-width: 10vh;
+    min-width: 2vh;
+    width: fit-content;
+    padding: 10px;
+}
+#tabletoprint{
+    color: black;
+    background-color: white;
+}

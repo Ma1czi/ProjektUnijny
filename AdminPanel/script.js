@@ -26,6 +26,16 @@ async function changeEye(eyeid, filepath){
     });
     window.location.reload();
 }
-function loop(){
-    alert("Podczas pracy");
+async function loop(filename){
+    var formData = new FormData;
+    formData.set("filename", filename);
+    await fetch('../ConnDB/createsession.php', {
+        method: 'POST',
+        body: formData,
+    }).then(r =>{
+        window.location.href = 'preview/showtable.php';
+
+    });
 }
+//modules/ok.php
+//../ConnDB/getTable.php
