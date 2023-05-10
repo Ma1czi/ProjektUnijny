@@ -43,6 +43,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tname = cleanString($tname);
         echo $tname;
         updateTable(file_get_contents($logspath), $tname);
-        file_put_contents($logspath, "");
     }
 }

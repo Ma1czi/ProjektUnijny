@@ -41,6 +41,7 @@ var convertForm = {
         input.setAttribute('type', 'text');
         input.setAttribute('id', 'title');
         input.setAttribute('value', title.innerHTML);
+        input.setAttribute('onchange', 'changetitle(value)');
         title.innerHTML = "";
         title.appendChild(input);
         //add adminpanel
@@ -236,6 +237,12 @@ async function undoChange(){
         body: formData
     });
     window.location.reload();
+}
+async function changetitle(value){
+    let fileName = location.pathname.split("/").slice(-1);
+    fileName = decodeURIComponent(fileName);
+    clog.addlog(value+';'+fileName, 'changetitle');
+    overwriteModifyFile();
 }
 function changevalue(name, value){
 //find all element to change value
