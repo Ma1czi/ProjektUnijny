@@ -56,15 +56,6 @@ table{
     width: 100%;
     text-align: left;
 }
-#plus svg:hover{
-    color: rgb(25, 163, 25)
-}
-.notes:hover{
-    color: rgb(178, 167, 7);
-}
-.trash:hover{
-    color: red;
-}
 details > summary {
     list-style: none;
   }
@@ -78,28 +69,4 @@ button{
     background-color: transparent;
     border: none;
     outline: none;
-}
-.info > svg path, .info > svg circle{
-    fill:white;
-}
-.info:hover > svg path, .info:hover > svg circle{
-    fill:rgb(15, 81, 202) ;
-}
-.eye >svg path{
-    fill: white;
-}
-.eye{
-    width: 24px;
-}
-.eye:hover >svg path{
-    fill: rgb(132, 132, 132);
-}
-.loop >svg path{
-    fill: white;
-}
-.loop{
-    width: 24px;
-}
-.loop:hover >svg path{
-    fill: rgb(18, 90, 138);
 }
