@@ -8,6 +8,7 @@ function gettable(){
     $tablename = "";
     if(!empty($_SESSION['tablename'])){
         $tablename = $_SESSION['tablename'];
+        echo "<h4>".$tablename."</h4><br>";
         $tablename = cleanString($tablename);
     }
     

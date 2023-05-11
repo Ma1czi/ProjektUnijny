@@ -7,6 +7,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" href="../Style/style.css">
     <link rel="stylesheet" href="../Style/form.css">
+    <link rel="stylesheet" href="../Style/admin.css">
     <title>ZSE-FormPage</title>
 </head>
 <body>
@@ -49,7 +50,15 @@
             
         </div>
     </footer>
-
+    <div id="confirm">
+        <h3>Czy jesteś pewien że chcesz usunąć formularz?</h3>
+        <div style="--color:rgba(0, 243, 0, 50%);" onclick="deletefile()">
+            
+        </div>
+        <div style="--color:rgba(255, 0, 0, 0.5);" onclick="hideconfirmwindow()">
+            
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

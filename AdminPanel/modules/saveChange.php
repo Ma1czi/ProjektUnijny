@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(file_exists($userFormPath)){
         $Formcontent = file_get_contents($userFormPath);
         $Formcontent = substr($Formcontent, 0, strpos($Formcontent, "<body>"));
-        $Formcontent = $Formcontent."<body>".substr($content, 0, strpos($content, "<script"))."</body></html>";
+        $Formcontent = $Formcontent."<body>".substr($content, 0, strpos($content, "<script src"))."</body></html>";
         file_put_contents($userFormPath, $Formcontent);
         
     }else{

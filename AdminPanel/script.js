@@ -2,9 +2,19 @@ function modifefile(filepath){
     filepath = "../FormModify/"+filepath;
     window.location.href = filepath;
 }
-async function deletefile(filepath){
+var pathfile = "";
+function showconfirmwindow(filepath){
+    pathfile = filepath
+    let confirm = document.getElementById("confirm");
+    confirm.style.display = "block";
+}
+function hideconfirmwindow(){
+    let confirm = document.getElementById("confirm");
+    confirm.style.display = "none";
+}
+async function deletefile(){
     var formData = new FormData;
-    formData.set("filepath", filepath);
+    formData.set("filepath", pathfile);
     await fetch('modules/delete.php', {
         method: 'POST',
         body: formData

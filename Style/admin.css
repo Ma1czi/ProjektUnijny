@@ -1,0 +1,52 @@
+.info > svg path, .info > svg circle{
+    fill:white;
+}
+.info:hover > svg path, .info:hover > svg circle{
+    fill:rgb(15, 81, 202) ;
+}
+.eye >svg path{
+    fill: white;
+}
+.eye{
+    width: 24px;
+}
+.eye:hover >svg path{
+    fill: rgb(132, 132, 132);
+}
+.loop >svg path{
+    fill: white;
+}
+.loop{
+    width: 24px;
+}
+.loop:hover >svg path{
+    fill: rgb(132, 132, 132);
+}
+#plus svg:hover{
+    color: rgb(25, 163, 25)
+}
+.notes:hover{
+    color: rgb(178, 167, 7);
+}
+.trash:hover{
+    color: rgb(232, 46, 46);
+}
+#confirm{
+    display: none;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 20%;
+    height: 300px;
+    width: 50vw;
+    min-width: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#confirm > div{
+ width: 50%;
+ float: left;
+ height: 80%;
+ background-color: var(--color);
+}

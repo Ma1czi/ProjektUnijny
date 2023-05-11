@@ -69,3 +69,12 @@ details > div{
 .reset{
     width: 24px;
 }
+.back svg path{
+    fill: white;
+}
+.back:hover svg path{
+    fill: rgb(51, 120, 151);
+}
+.back{
+    width: 24px;
+}

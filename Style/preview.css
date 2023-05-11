@@ -13,6 +13,7 @@ td, th{
     
 }
 #tabletoprint{
+    text-align: center;
     color: black;
     background-color: white;
     width: fit-content;
@@ -41,4 +42,7 @@ td, th{
     width: fit-content;
     position: absolute;
     right: 0;
+}
+h4{
+    text-align: center;
 }
