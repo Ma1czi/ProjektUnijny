@@ -1,15 +1,15 @@
 var convertForm = {
-    convertIntoAdminPanel:function(){
-        let playground = document.getElementsByClassName('playground')[0];
+    convertIntoAdminPanel:function(doc){
+        let playground = doc.getElementsByClassName('playground')[0];
         // playground.setAttribute('onchange', 'findchange()');
-        var main = document.querySelector("main");
+        var main = doc.querySelector("main");
         //disabled all input
-        let allinput = document.querySelectorAll('input');
+        let allinput = doc.querySelectorAll('input');
         allinput.forEach(elemnent =>{
             elemnent.setAttribute('disabled', 'true');
         });
         //change all label to input
-        let alllabel = document.querySelectorAll('label');
+        let alllabel = doc.querySelectorAll('label');
         alllabel.forEach(label =>{
 
             //get information about label
@@ -17,7 +17,7 @@ var convertForm = {
             let labelinnerHTML = label.innerHTML;
 
             //create new input that replace label
-            let newInput = document.createElement('input');
+            let newInput = doc.createElement('input');
             newInput.setAttribute('type', 'text');
             newInput.setAttribute('value', labelinnerHTML);
             newInput.setAttribute('name', labelfor);
@@ -25,7 +25,7 @@ var convertForm = {
 
             //create new button that delete row
             if(label.parentElement == label.parentElement.parentElement.children[0]){
-                let newButton = document.createElement('button');
+                let newButton = doc.createElement('button');
                 newButton.setAttribute('onClick', 'deleterow(\''+labelfor+'\')');
                 newButton.innerHTML = "<div class='trash'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z' fill='currentColor'/><path d='M9 9H11V17H9V9Z' fill='currentColor' /><path d='M13 9H15V17H13V9Z' fill='currentColor' /></svg></div>";
                 label.parentNode.appendChild(newButton);
@@ -36,8 +36,8 @@ var convertForm = {
             label.replaceWith(newInput);
         });
         //change title into input
-        let title = document.getElementById('tytul');
-        let input = document.createElement('input');
+        let title = doc.getElementById('tytul');
+        let input = doc.createElement('input');
         input.setAttribute('type', 'text');
         input.setAttribute('id', 'title');
         input.setAttribute('value', title.innerHTML);
@@ -49,24 +49,23 @@ var convertForm = {
         main.innerHTML = main.innerHTML+textadd;
 
         //disabled form action
-        let faction = document.querySelector('form');
+        let faction = doc.querySelector('form');
         faction.removeAttribute('action');
 
     }, 
-    convertintoUserForm:function(){ 
-        let playground = document.getElementsByClassName('playground')[0];
+    convertintoUserForm:function(doc){ 
+        let playground = doc.getElementsByClassName('playground')[0];
         //playground.removeAttribute('onchange');
-        document.getElementById("modipanel").remove();
-        let allinput = document.querySelectorAll('input');
+        doc.getElementById("modipanel").remove();
+        let allinput = doc.querySelectorAll('input');
         allinput.forEach(input =>{
-
             if(input.getAttribute('id') == null){
                 //get information about input
                 let inputvalue = input.value;
                 let inputname = input.getAttribute('name');
-
+                console.log(inputvalue);
                 //create and set new label
-                let newlabel = document.createElement('label');
+                let newlabel = doc.createElement('label');
                 newlabel.setAttribute('for', inputname);
                 newlabel.innerHTML = inputvalue;
                 if(input.parentElement.querySelector('button')){
@@ -82,7 +81,7 @@ var convertForm = {
         });
         //abled form action
         //disabled form action
-        let faction = document.querySelector('form');
+        let faction = doc.querySelector('form');
         faction.setAttribute('action', '../ConnDB/addElement.php');
     }
 };
@@ -101,12 +100,21 @@ class log{
         return this.log;
     }
 }
+function setallvalue(){
+    let inputs = document.body.querySelectorAll('input')
+    inputs.forEach(input =>{
+        input.setAttribute('value', input.value);
+    });
+}
 async function overwriteModifyFile(){
-    convertForm.convertintoUserForm();
+    let doc = document.implementation.createHTMLDocument("New Document");
+    setallvalue();
+    doc.body.innerHTML = document.body.innerHTML;
+    convertForm.convertintoUserForm(doc);
     let formData = new FormData;
     let fileName = location.pathname.split("/").slice(-1);
     fileName = decodeURIComponent(fileName);
-    let content = document.body.innerHTML;
+    let content = doc.body.innerHTML;
     formData.append("content", content);
     formData.append("formName", fileName);
     formData.append("logs", clog.logs);
@@ -115,7 +123,6 @@ async function overwriteModifyFile(){
         method: 'POST',
         body: formData
     });
-    convertForm.convertIntoAdminPanel();
     //alert("dsa");
     return null;
 }
@@ -124,7 +131,7 @@ async function deleterow(rowid){
     let elem = document.getElementById(rowid);
     clog.addlog(rowid, 'delete');
     elem.parentElement.parentElement.remove();
-    console.log(clog.logs);
+    //console.log(clog.logs);
     overwriteModifyFile();
 }
 class createElement{
@@ -182,6 +189,7 @@ class createElement{
                 let newlabel = document.createElement('input');
                 newlabel.setAttribute('type', 'text');
                 newlabel.setAttribute('value', i);
+                newlabel.setAttribute('onchange', 'changevalue(name, value)');
                 if(i==0)
                     newlabel.setAttribute('name', this.val);
                 else
@@ -197,6 +205,7 @@ class createElement{
         input.setAttribute("type", "text");
         input.setAttribute("value", this.val);
         input.setAttribute("name", this.val);
+        input.setAttribute("onchange", "findchange(name, value)");
         return input;
     }
     createButton(){
@@ -231,7 +240,7 @@ function addElement(){
         row.appendChild(element.createUserInput());
         element.getplace.appendChild(row);
         clog.addlog(element.id, 'add');
-        console.log(clog.logs);
+        //console.log(clog.logs);
         overwriteModifyFile();
 
     }
@@ -249,46 +258,66 @@ async function undoChange(){
     window.location.reload();
 }
 async function changetitle(value){
-    let fileName = location.pathname.split("/").slice(-1);
-    fileName = decodeURIComponent(fileName);
-    clog.addlog(value+';'+fileName, 'changetitle');
-    overwriteModifyFile();
+    if(value != ""){
+        let fileName = location.pathname.split("/").slice(-1);
+        fileName = decodeURIComponent(fileName);
+        clog.addlog(value+';'+fileName, 'changetitle');
+        overwriteModifyFile();
+    }
 }
 function changevalue(name, value){
 //find all element to change value
-    let input = document.getElementById(name);
-    input.setAttribute('value', value);
-    overwriteModifyFile();
+    if(value != ""){
+        let input = document.getElementById(name);
+        input.setAttribute('value', value);
+        overwriteModifyFile();
+
+    }
 }
 function back(){
     window.location.href = '../AdminPanel/index.php';
 }
 function findchange(name, value){
-    clog.addlog(name, value);
-    console.log(clog.logs);
+    console.log(value);
+    if(value != ""){
 
-    //find all element to change value
-    let inputs = document.getElementsByName(name);
-    let parent = inputs[0].parentElement.parentElement.querySelectorAll('input');
-    let button = inputs[0].parentElement.querySelector('button');
-    console.log(parent);
-    //change value
-    button.setAttribute('onClick', 'deleterow(\''+value+'\')');
-    parent.forEach(input => {
-        if(input.getAttribute('id') != null){
-            input.setAttribute('id', value);
-        }
-        input.setAttribute('name', value);
-    });
+        clog.addlog(name, value);
+        //console.log(clog.logs);
+    
+        //find all element to change value
+        let inputs = document.getElementsByName(name);
+        let parent = inputs[0].parentElement.parentElement.querySelectorAll('input');
+        let button = inputs[0].parentElement.querySelector('button');
+        //console.log(parent);
+        //change value
+        button.setAttribute('onClick', 'deleterow(\''+value+'\')');
+        let i = 0;
+        let idvalue = value;
+        parent.forEach(input => {
+            input.setAttribute('name', value);
+            if(input.getAttribute('id') != null){
+                input.setAttribute('id', idvalue);
+            }
+            if(i%2 == 0 && i != 0){
+                idvalue = value+i/2;
+            }else{
+                input.setAttribute('name', idvalue);
+            }
+            i++;
+        });
+        overwriteModifyFile();
+    }
 
-    overwriteModifyFile();
 }
 async function saveChange(){
-    convertForm.convertintoUserForm();
+    let doc = document.implementation.createHTMLDocument("New Document");
+    setallvalue();
+    doc.body.innerHTML = document.body.innerHTML;
+    convertForm.convertintoUserForm(doc);
     let formData = new FormData;
     let fileName = location.pathname.split("/").slice(-1);
     fileName = decodeURIComponent(fileName);
-    let content = document.body.innerHTML;
+    let content = doc.body.innerHTML;
     formData.append("content", content);
     formData.append("formName", fileName);
     //console.log(formData);
@@ -296,10 +325,10 @@ async function saveChange(){
         method: 'POST',
         body: formData
     });
-    convertForm.convertIntoAdminPanel();
     clog.resetlog();
+    back();
 }
-convertForm.convertIntoAdminPanel();
+convertForm.convertIntoAdminPanel(document);
 if(document.getElementById('modipanel') != null){
     document.getElementById('modipanel').onchange = function(){
         let type = document.getElementById('inputtype');
