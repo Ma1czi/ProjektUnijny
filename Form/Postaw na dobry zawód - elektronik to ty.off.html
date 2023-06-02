@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="stylesheet" href="../Style/form.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>ZSE-FormPage</title>
+</head>
+<body>
+    <header>
+        <div class="center">
+            <div>
+                <b style="font-size: 22px;">Zespół Szkół Elektronicznych</b><br>im.Stanisława Staszica w Zduńskiej Woli
+            </div>
+        </div>
+    </header>
+    <main id="main">
+        <div class="center">
+            <div class="playground" style="margin-top: 30px;"> 
+                <form action="../ConnDB/addElement.php" method="post">
+                    <h4 id="tytul">Postaw na dobry zawód - elektronik to ty</h4>
+                    <fieldset>
+                        <legend>Dane personalne</legend>
+                        <table id="Dane personalne">
+                            <tr>
+                                <td><label for="Imię:">Imię:</label></td>
+                                <td><input type="text" name="Imię:" id="Imię:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Nazwisko:">Nazwisko:</label></td>
+                                <td><input type="text" name="Nazwisko:" id="Nazwisko:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Pesel:">Pesel:</label></td>
+                                <td><input type="text" name="Pesel:" id="Pesel:" maxlength="11" pattern="[0-9]{11}" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Data i miejsce urodzenia:">Data i miejsce urodzenia:</label></td>
+                                <td><input type="text" name="Data i miejsce urodzenia:" id="Data i miejsce urodzenia:" required placeholder="miejsce dd.mm.yyyy"></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dane kontaktowe</legend>
+                        <table id="Dane kontaktowe">
+                            <tr>
+                                <td><label for="Zameldowanie:">Zameldowanie:</label></td>
+                                <td>
+                                    <label for="Zameldowanie:">Miasto</label><input type="radio" name="Zameldowanie:" id="Zameldowanie:" checked value="Miasto">
+                                    <label for="Zameldowanie:1">Wieś</label><input type="radio" name="Zameldowanie:" id="Zameldowanie:1" value="Wieś">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="Województwo:">Województwo:</label></td>
+                                <td><input type="text" name="Województwo:" id="Województwo:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Miejscowość:">Miejscowość:</label></td>
+                                <td><input type="text" name="Miejscowość:" id="Miejscowość:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Kod:">Kod:</label></td>
+                                <td><input type="text" name="Kod:" id="Kod:" pattern="[0-9]{2}-[0-9]{3}" placeholder="00-000" maxlength="6" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Ulica:">Ulica:</label></td>
+                                <td><input type="text" name="Ulica:" id="Ulica:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Telefon:">Telefon:</label></td>
+                                <td><input type="tel" name="Telefon:" id="Telefon:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="E-mail osobisty:">E-mail osobisty:</label></td>
+                                <td><input type="email" name="E-mail osobisty:" id="E-mail osobisty:" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="E-mail szkolny:">E-mail szkolny:</label></td>
+                                <td><input type="email" name="E-mail szkolny:" id="E-mail szkolny:" required></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Inne</legend>
+                        <table id="Inne">
+                            <tr>
+                                <td><label for="Klasa i kierunek:">Klasa i kierunek:</label></td>
+                                <td><input type="text" name="Klasa i kierunek:" id="Klasa i kierunek:"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Urzeń/Urzennica z niepełnosprawnością:">Urzeń/Urzennica z niepełnosprawnością:</label></td>
+                                <td>
+                                    <label for="Urzeń/Urzennica z niepełnosprawnością:">Tak</label><input type="radio" name="Urzeń/Urzennica z niepełnosprawnością:" id="Urzeń/Urzennica z niepełnosprawnością:" value="Tak">
+                                    <label for="Urzeń/Urzennica z niepełnosprawnością:1">Nie</label><input type="radio" name="Urzeń/Urzennica z niepełnosprawnością:" id="Urzeń/Urzennica z niepełnosprawnością:1" checked value="Nie">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="Urzeń/Urzennica z opinią lub orzeczeniem:">Urzeń/Urzennica z opinią lub orzeczeniem:</label></td>
+                                <td>
+                                    <label for="Urzeń/Urzennica z opinią lub orzeczeniem:">Tak</label><input type="radio" name="Urzeń/Urzennica z opinią lub orzeczeniem:" id="Urzeń/Urzennica z opinią lub orzeczeniem:" value="Tak">
+                                    <label for="Urzeń/Urzennica z opinią lub orzeczeniem:1">Nie</label><input type="radio" name="Urzeń/Urzennica z opinią lub orzeczeniem:" id="Urzeń/Urzennica z opinią lub orzeczeniem:1" checked value="Nie">
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+
+                    <br>
+                    <div id="sendbutton">
+                        <div>
+                            <div>
+                                <button type="reset"><div class="reset"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="reset"><path d="M37.707 9.586c-13.234 0-24 10.766-24 24v13.171l-8.586-8.585L2.293 41l13.414 13.414L29.121 41l-2.828-2.828-8.586 8.585V33.586c0-11.028 8.972-20 20-20s20 8.972 20 20c0 5.342-2.08 10.364-5.858 14.143l2.829 2.828a23.846 23.846 0 0 0 7.029-16.971c0-13.234-10.766-24-24-24z"></path></svg></div></button>
+                            </div>
+                            <div>
+                                <button type="submit"><div class="send"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 16 16" viewBox="0 0 16 16" id="send"><g display="none"><polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="11.5 10.5 9.5 15.5 6.5 9.5 .5 6.5 15.5 .5 12.2 8.8"></polyline><polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="5.5 9 5.5 12.5 7.5 11.5"></polyline><line x1="6.5" x2="15" y1="9.5" y2="1" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></line></g><path d="M15.9,0.1C15.7,0,15.5,0,15.3,0l-15,6C0.1,6.1,0,6.3,0,6.5c0,0.2,0.1,0.4,0.3,0.5L5,9.3v3.2
+                                    c0,0.2,0.1,0.3,0.2,0.4C5.3,13,5.4,13,5.5,13c0.1,0,0.2,0,0.2-0.1l1.6-0.8l1.8,3.6C9.1,15.9,9.3,16,9.5,16c0,0,0,0,0,0
+                                    c0.2,0,0.4-0.1,0.4-0.3l2-5c0.1-0.3,0-0.5-0.3-0.6c-0.3-0.1-0.5,0-0.6,0.3l-1.6,4L7.1,9.6l7-7l-2.4,6c-0.1,0.3,0,0.5,0.3,0.6
+                                    c0.3,0.1,0.5,0,0.6-0.3L16,0.7C16,0.5,16,0.3,15.9,0.1z M13.4,1.9l-7,7L1.7,6.6L13.4,1.9z M6,11.7V9.8l0.1,0.1l0.7,1.4L6,11.7z" display="none"></path><polygon fill="#e4f5f7" points="14.5 2.5 14.5 2 13.5 2 13.5 2.9 2.3 7.4 6.5 9.5 9.5 15.5 14.7 2.4"></polygon><polyline fill="#bfdadd" points="5.5 9 5.5 12.5 7.5 11.5"></polyline><path fill="#3e3643" d="M15.9,0.1C15.7,0,15.5,0,15.3,0l-15,6C0.1,6.1,0,6.3,0,6.5c0,0.2,0.1,0.4,0.3,0.5L5,9.3v3.2
+                                    c0,0.2,0.1,0.3,0.2,0.4C5.3,13,5.4,13,5.5,13c0.1,0,0.2,0,0.2-0.1l1.6-0.8l1.8,3.6C9.1,15.9,9.3,16,9.5,16c0,0,0,0,0,0
+                                    c0.2,0,0.4-0.1,0.4-0.3l2-5c0.1-0.3,0-0.5-0.3-0.6c-0.3-0.1-0.5,0-0.6,0.3l-1.6,4L7.1,9.6l7-7l-2.4,6c-0.1,0.3,0,0.5,0.3,0.6
+                                    c0.3,0.1,0.5,0,0.6-0.3L16,0.7C16,0.5,16,0.3,15.9,0.1z M13.4,1.9l-7,7L1.7,6.6L13.4,1.9z M6,11.7V9.8l0.1,0.1l0.7,1.4L6,11.7z"></path></svg></div></button>
+                                </div>
+                            </form>
+                                <div>
+                                    <div class="back" onclick="back()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="back-arrow"><g data-name="Layer 2"><g data-name="arrow-back"><rect width="24" height="24" opacity="0" transform="rotate(90 12 12)"></rect><path d="M19 11H7.14l3.63-4.36a1 1 0 1 0-1.54-1.28l-5 6a1.19 1.19 0 0 0-.09.15c0 .05 0 .08-.07.13A1 1 0 0 0 4 12a1 1 0 0 0 .07.36c0 .05 0 .08.07.13a1.19 1.19 0 0 0 .09.15l5 6A1 1 0 0 0 10 19a1 1 0 0 0 .64-.23 1 1 0 0 0 .13-1.41L7.14 13H19a1 1 0 0 0 0-2z"></path></g></g></svg></div>
+                                    <script>function back(){window.location.href = '../UserPage/index.php';}</script>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>
+                <div class="center">
+                    Copyright &copy; - Zespół Szkół Elektronicznych w Zduńskiej Woli <br> 
+                </div>
+            </footer>
+        </body>
+</html>
