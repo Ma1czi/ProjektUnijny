@@ -15,3 +15,4 @@ Praca oparta o interfejs bazodanowy wraz z systemem logowania, weryfikacją dla 
 
 ## Konfiguracja
 Do połączenia się z Bazą danych trzeba skonfigurować plik: ../ConnDB/connDB.php 
+W folderze '../' muszą istnieć dwa foldery ("Form", "FormModify"). W przypda ich braku należy je dodać.
