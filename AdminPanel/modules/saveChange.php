@@ -4,12 +4,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $content = $_POST['content'];
     $adminFormFolderPath = "../../FormModify/";
     $userFormFolderPath = "../../Form/";
-    $modifyLogs = "../../ModifyLogs/";
+    $logspath = "../../ModifyLogs/logs.json";
     $adminFormPath = $adminFormFolderPath.$formName;
     $userFormPath = $userFormFolderPath.$formName;
-    $logspath = $modifyLogs.$formName;
-    $logspath = str_replace(".off", "", $logspath);
-    $logspath = str_replace(".html", ".txt", $logspath);
+    
 
     //overwrite adminForm
     if(file_exists($adminFormPath)){
@@ -40,8 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(file_exists($logspath)){
         $tname = str_replace(".html", "", $formName);
         $tname = str_replace(".off", "", $tname);
-        $tname = cleanString($tname);
-        echo $tname;
-        updateTable(file_get_contents($logspath), $tname);
+        $jsoncontent = file_get_contents($logspath);
+        $jsoncontent = json_decode($jsoncontent, true);
+        updateTable($jsoncontent, $tname);
+
+        unset($jsoncontent[$tname]);
+        file_put_contents($logspath, json_encode($jsoncontent));
     }
 }

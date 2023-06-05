@@ -4,11 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formModifyFolderPath = "../../FormModify/";
     $formFolderPath = "../../Form/";
     $jsmodifyfilepath = "../AdminPanel/modules/modify.js";
-    $modifyLogs = "../../ModifyLogs/";
-
-    $logspath = $modifyLogs.$formName;
-    $logspath = str_replace(".html", ".txt", $logspath);
-    $logspath = str_replace(".off", "", $logspath);
+    $logspath = "../../ModifyLogs/logs.json";
     $formModifyPath = $formModifyFolderPath.$formName;
     $formPath = $formFolderPath.$formName;
 
@@ -21,7 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else{
         die("Error: File doesn't exist: $formPath or $formModifyPath");
     }
-    if(file_exists($logspath)){
-        file_put_contents($logspath, "");
-    }
+
+    $jsoncontent = file_get_contents($logspath);
+    $jsoncontent = json_decode($jsoncontent, true);
+    $formName = str_replace(".off", "", $_POST["formName"]);
+    $formName = str_replace(".html", "", $formName);
+    unset($jsoncontent[$formName]);
+    file_put_contents($logspath, json_encode($jsoncontent));
 }

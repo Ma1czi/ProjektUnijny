@@ -5,19 +5,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logspath = "../../ModifyLogs/";
     $adminfilepath .= $_POST['filepath'];
     $filepath .= $_POST['filepath'];
-    $logspath .= $_POST['filepath'];
-    $logspath = str_replace(".off", "", $logspath);
-    $logspath = str_replace(".html", ".txt", $logspath);
+    $logspath = "../../ModifyLogs/logs.json";
 
     unlink($adminfilepath);
     unlink($filepath);
-    unlink($logspath);
-
+    $jsoncontent = file_get_contents($logspath);
+    $jsoncontent = json_decode($jsoncontent, true);
+    $formName = str_replace(".off", "", $_POST["filepath"]);
+    $formName = str_replace(".html", "", $formName);
+    unset($jsoncontent[$formName]);
+    file_put_contents($logspath, json_encode($jsoncontent));
 
     include_once('../../ConnDB/connDB.php');
     include_once('../../ConnDB/cleanString.php');
-    $formName = str_replace('.html', '', $_POST['filepath']);
-    $formName = str_replace('.off', '', $formName);
     $formName = cleanString($formName);
 
     if($formName != "" && isset($formName)){

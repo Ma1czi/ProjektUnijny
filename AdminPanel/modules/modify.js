@@ -124,6 +124,7 @@ async function overwriteModifyFile(){
         body: formData
     });
     //alert("dsa");
+    clog.resetlog();
     return null;
 }
 
